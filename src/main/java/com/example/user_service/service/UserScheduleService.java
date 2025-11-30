@@ -80,9 +80,10 @@ public class UserScheduleService {
         // Convert schedules list to JSON string
         String scheduleJson = objectMapper.writeValueAsString(request.getSchedules());
         
-        // Update the schedule data
+        // Update the schedule data and timestamp
         existingSchedule.setSchedule(scheduleJson);
         existingSchedule.setParsedPrompt(request.getParsedPrompt());
+        existingSchedule.setCreatedAt(java.time.LocalDateTime.now()); // Update timestamp
         
         return userScheduleRepository.save(existingSchedule);
     }
