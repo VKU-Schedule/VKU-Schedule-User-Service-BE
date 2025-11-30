@@ -1,0 +1,60 @@
+# Example configuration file for User Service
+# Copy this file to application.yml and update with your actual values
+
+spring:
+  application:
+    name: user-service
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/schedule_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root  # Change to your MySQL username
+    password: root  # Change to your MySQL password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update  # Options: create, create-drop, update, validate, none
+    show-sql: true  # Set to false in production
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-google-client-id  # Get from Google Cloud Console
+            client-secret: your-google-client-secret  # Get from Google Cloud Console
+            scope:
+              - profile
+              - email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+server:
+  port: 8081
+
+# Search Service URL
+search:
+  service:
+    url: http://localhost:8082
+
+# Python Script Path
+python:
+  script:
+    path: src/main/resources/python
+
+# Logging (optional)
+logging:
+  level:
+    root: INFO
+    com.example.user_service: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
