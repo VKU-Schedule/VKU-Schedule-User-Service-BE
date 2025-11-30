@@ -29,6 +29,9 @@ public class UserSchedule {
     @Column(name = "schedule", columnDefinition = "JSON", nullable = false)
     private String schedule;
 
+    @Column(name = "prompt", columnDefinition = "TEXT")
+    private String prompt;
+
     @Column(name = "parsed_prompt", columnDefinition = "TEXT")
     private String parsedPrompt;
 

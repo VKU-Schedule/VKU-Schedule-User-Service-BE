@@ -12,5 +12,6 @@ public class SaveScheduleRequest {
     private Long userId;
     private Long semesterId;
     private List<ScheduleDTO> schedules;
+    private String prompt;
     private String parsedPrompt;
 }

@@ -41,6 +41,7 @@ public class UserScheduleService {
         userSchedule.setSemesterName(semester.getSemesterName());
         userSchedule.setAcademicYear(semester.getAcademicYear().getYearName());
         userSchedule.setSchedule(scheduleJson);
+        userSchedule.setPrompt(request.getPrompt());
         userSchedule.setParsedPrompt(request.getParsedPrompt());
 
         return userScheduleRepository.save(userSchedule);
@@ -82,6 +83,7 @@ public class UserScheduleService {
         
         // Update the schedule data and timestamp
         existingSchedule.setSchedule(scheduleJson);
+        existingSchedule.setPrompt(request.getPrompt());
         existingSchedule.setParsedPrompt(request.getParsedPrompt());
         existingSchedule.setCreatedAt(java.time.LocalDateTime.now()); // Update timestamp
         
