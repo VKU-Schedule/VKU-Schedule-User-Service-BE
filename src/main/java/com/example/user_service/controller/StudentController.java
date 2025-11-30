@@ -101,4 +101,16 @@ public class StudentController {
             return ResponseEntity.badRequest().body("Failed to delete schedule: " + e.getMessage());
         }
     }
+
+    @PutMapping("/schedules/{scheduleId}")
+    public ResponseEntity<?> updateSchedule(
+            @PathVariable Long scheduleId,
+            @RequestBody com.example.user_service.dto.SaveScheduleRequest request) {
+        try {
+            UserSchedule updated = userScheduleService.updateSchedule(scheduleId, request);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update schedule: " + e.getMessage());
+        }
+    }
 }

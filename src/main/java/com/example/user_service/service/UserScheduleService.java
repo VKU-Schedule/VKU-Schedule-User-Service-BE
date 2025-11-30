@@ -71,4 +71,19 @@ public class UserScheduleService {
     public void deleteSchedule(Long scheduleId) {
         userScheduleRepository.deleteById(scheduleId);
     }
+
+    @Transactional
+    public UserSchedule updateSchedule(Long scheduleId, SaveScheduleRequest request) throws JsonProcessingException {
+        UserSchedule existingSchedule = userScheduleRepository.findById(scheduleId)
+            .orElseThrow(() -> new RuntimeException("Schedule not found"));
+        
+        // Convert schedules list to JSON string
+        String scheduleJson = objectMapper.writeValueAsString(request.getSchedules());
+        
+        // Update the schedule data
+        existingSchedule.setSchedule(scheduleJson);
+        existingSchedule.setParsedPrompt(request.getParsedPrompt());
+        
+        return userScheduleRepository.save(existingSchedule);
+    }
 }
