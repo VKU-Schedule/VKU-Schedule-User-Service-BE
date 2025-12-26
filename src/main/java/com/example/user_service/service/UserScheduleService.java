@@ -35,6 +35,11 @@ public class UserScheduleService {
 
         // Convert schedules list to JSON string
         String scheduleJson = objectMapper.writeValueAsString(request.getSchedules());
+        
+        // Convert parsedPrompt Map to JSON string
+        String parsedPromptJson = request.getParsedPrompt() != null 
+            ? objectMapper.writeValueAsString(request.getParsedPrompt())
+            : null;
 
         UserSchedule userSchedule = new UserSchedule();
         userSchedule.setUser(user);
@@ -42,7 +47,7 @@ public class UserScheduleService {
         userSchedule.setAcademicYear(semester.getAcademicYear().getYearName());
         userSchedule.setSchedule(scheduleJson);
         userSchedule.setPrompt(request.getPrompt());
-        userSchedule.setParsedPrompt(request.getParsedPrompt());
+        userSchedule.setParsedPrompt(parsedPromptJson);
 
         return userScheduleRepository.save(userSchedule);
     }
@@ -81,10 +86,15 @@ public class UserScheduleService {
         // Convert schedules list to JSON string
         String scheduleJson = objectMapper.writeValueAsString(request.getSchedules());
         
+        // Convert parsedPrompt Map to JSON string
+        String parsedPromptJson = request.getParsedPrompt() != null 
+            ? objectMapper.writeValueAsString(request.getParsedPrompt())
+            : null;
+        
         // Update the schedule data and timestamp
         existingSchedule.setSchedule(scheduleJson);
         existingSchedule.setPrompt(request.getPrompt());
-        existingSchedule.setParsedPrompt(request.getParsedPrompt());
+        existingSchedule.setParsedPrompt(parsedPromptJson);
         existingSchedule.setCreatedAt(java.time.LocalDateTime.now()); // Update timestamp
         
         return userScheduleRepository.save(existingSchedule);

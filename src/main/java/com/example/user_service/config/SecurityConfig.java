@@ -23,10 +23,15 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").permitAll()
                 .requestMatchers("/api/student/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/login/**").permitAll()
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 -> oauth2
                 .defaultSuccessUrl("/api/auth/login-success", true)
+            )
+            .sessionManagement(session -> session
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
             );
         
         return http.build();
